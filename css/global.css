@@ -1,0 +1,132 @@
+* {
+  box-sizing: border-box;
+  font-family: Poppins;
+}
+
+html {
+  height: 100vh;
+}
+
+body {
+  max-width: 30%;
+  margin: auto;
+  background-color: rgba(12, 0, 68, 0.719);
+}
+
+#main__wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+#welcome__points__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#quiz__user__name {
+    color: white;
+    font-size: 1.5rem;
+    padding-block: 1.5rem;
+}
+
+#quiz__points__counter {
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    color: white;
+}
+
+#question__wrapper {
+    font-size: 1.5rem;
+  color: white;
+  background: linear-gradient(
+    160deg,
+    rgba(6, 0, 101, 1) 0%,
+    rgba(9, 9, 121, 1) 30%,
+    rgba(207, 0, 255, 1) 100%
+  );
+  border-radius: 0.75rem;
+  width: 30rem;
+  height: 8rem;
+  padding: 1rem;
+  margin-block: 1.25rem;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#flag__wrapper {
+  margin-top: 1.5rem;
+}
+
+#options__wrapper__1,
+#options__wrapper__2,
+#options__wrapper__3,
+#options__wrapper__4 {
+  color: white;
+  background: linear-gradient(
+    160deg,
+    rgba(6, 0, 101, 1) 0%,
+    rgba(9, 9, 121, 1) 30%,
+    rgba(207, 0, 255, 1) 100%
+  );
+  font-size: 1.25rem;
+  border-radius: 0.75rem;
+  width: 30rem;
+  padding: 1rem;
+  margin-block: 1.25rem;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+#options__wrapper__1:hover,
+#options__wrapper__2:hover,
+#options__wrapper__3:hover,
+#options__wrapper__4:hover {
+  cursor: pointer;
+  box-shadow: lime 0px 1px 2px, lime 0px 0px 0px 2px;
+}
+
+#options__wrapper__1:focus,
+#options__wrapper__2:focus,
+#options__wrapper__3:focus,
+#options__wrapper__4:focus {
+  cursor: pointer;
+  box-shadow: lime 0px 1px 2px, lime 0px 0px 0px 2px;
+}
+
+#button__wrapper {
+  width: 30rem;
+  margin-block: 1.25rem;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#submit__answer__button {
+  cursor: pointer;
+  background-color: transparent;
+border-radius: 1rem;
+background-color: transparent;
+  color: rgb(255, 255, 255);
+  font-size: 1rem;
+  height: 3rem;
+  width: 80%;
+}
+
+#submit__answer__button:hover {
+    border: none;
+    box-shadow: lime 0px 1px 2px, lime 0px 0px 0px 2px;  
+}
+
+
