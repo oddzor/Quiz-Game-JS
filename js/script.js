@@ -1036,29 +1036,32 @@ let sec = 20;
     if (sec == -1 ) {
       clearInterval(timerInterval);
       loadQuestionStartTimer();
+      console.log(sec); 
     }
   }
 }
 
-function loadQuestionStartTimer () {
-loadRandomQuestion();
-startTimer();
-}
-
-const maximumTime = 20;
-const maximumPoints = 100;
-const minimumPoints = 0;
-const pointsDecay = 5;
 
 
-function pointCalculation (remainingTime) {
- let points = 100 - (5 * (20 - remainingTime));
- if (points < 0) {
-  points = 0;
- } return points;
-}
+// function loadQuestionStartTimer () {
+// loadRandomQuestion();
+// startTimer();
+// }
+
+// const maximumTime = 20;
+// const maximumPoints = 100;
+// const minimumPoints = 0;
+// const pointsDecay = 5;
+// const incorrectAnswer = 0;
+
+// function pointCalculation (remainingTime) {
+//  let points = 100 - (5 * (20 - remainingTime));
+//  if (points < 0) {
+//   points = 0;
+//  } return points;
+// }
 
 // function answerSubmitted () {
 // let remainingTime = timerInterval;
 // let pointsAwarded = pointCalculation(remainingTime);
-// }
+// }  
