@@ -129,4 +129,8 @@ background-color: transparent;
     box-shadow: lime 0px 1px 2px, lime 0px 0px 0px 2px;  
 }
 
+#countdown__timer {
+  color: white;
+}
+
 

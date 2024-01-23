@@ -15,6 +15,7 @@ const answerButtons = [
 ];
 const submitButton = document.getElementById("submit__answer_button");
 
+let userNameList = [];
 
 
 
@@ -1005,15 +1006,15 @@ const submitButton = document.getElementById("submit__answer_button");
 
   function getRandomQuestionIndex() {
     return Math.floor(Math.random() * questionBank.length);
-  }
+  } // Returns a random value in the array length to randomize questions //
   
   function loadRandomQuestion() {
     const randomIndex = getRandomQuestionIndex(); 
     loadQuestion(randomIndex); 
+    startTimer(); // Function to load the random question and calls on the timer start function each time a new question is loaded //
   }
 
-  window.onload = loadRandomQuestion;
-
+  window.onload = loadRandomQuestion; // Loads random question based on the previous function into the HTML elements //
 
 
 function loadQuestion(questionIndex) {
@@ -1025,3 +1026,39 @@ function loadQuestion(questionIndex) {
 }
 
 loadQuestion();
+
+function startTimer() {
+let sec = 20;
+  let timerInterval = setInterval(quizTimer, 1000);
+  function quizTimer() {
+    document.getElementById("countdown__timer").innerHTML ="You have" + " " + sec + " " + "seconds";
+    sec--;
+    if (sec == -1 ) {
+      clearInterval(timerInterval);
+      loadQuestionStartTimer();
+    }
+  }
+}
+
+function loadQuestionStartTimer () {
+loadRandomQuestion();
+startTimer();
+}
+
+const maximumTime = 20;
+const maximumPoints = 100;
+const minimumPoints = 0;
+const pointsDecay = 5;
+
+
+function pointCalculation (remainingTime) {
+ let points = 100 - (5 * (20 - remainingTime));
+ if (points < 0) {
+  points = 0;
+ } return points;
+}
+
+// function answerSubmitted () {
+// let remainingTime = timerInterval;
+// let pointsAwarded = pointCalculation(remainingTime);
+// }
