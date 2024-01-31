@@ -1,3 +1,8 @@
+// import { createClient } from '@supabase/supabase-js'
+// const supabaseUrl = 'https://sywoixmfimdjfqgvznzc.supabase.co'
+// const supabaseKey = process.env.SUPABASE_KEY
+// const supabase = createClient(supabaseUrl, supabaseKey);
+
 let quizUser = prompt("Enter your name", "Quiz User"); // Prompt to enter name //
 
 if (quizUser != null) {
@@ -1036,32 +1041,29 @@ let sec = 20;
     if (sec == -1 ) {
       clearInterval(timerInterval);
       loadQuestionStartTimer();
-      console.log(sec); 
     }
-  }
+  } 
+  console.log(sec);
 }
 
 
 
-// function loadQuestionStartTimer () {
-// loadRandomQuestion();
-// startTimer();
-// }
+function loadQuestionStartTimer () {
+loadRandomQuestion();
+startTimer();
+}
 
-// const maximumTime = 20;
-// const maximumPoints = 100;
-// const minimumPoints = 0;
-// const pointsDecay = 5;
-// const incorrectAnswer = 0;
+function pointCalculation (remainingTime) {
+ let points = 100 - (5 * (20 - remainingTime));
+ if (points < 0) {
+  points = 0;
+ } return points;
+}
 
-// function pointCalculation (remainingTime) {
-//  let points = 100 - (5 * (20 - remainingTime));
-//  if (points < 0) {
-//   points = 0;
-//  } return points;
-// }
 
-// function answerSubmitted () {
-// let remainingTime = timerInterval;
-// let pointsAwarded = pointCalculation(remainingTime);
-// }  
+function answerSubmitted () {
+let remainingTime = timerInterval;
+let pointsAwarded = pointCalculation(remainingTime);
+}  
+
+

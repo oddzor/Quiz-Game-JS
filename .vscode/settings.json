@@ -1,0 +1,40 @@
+{
+    "cSpell.words": [
+        "argparse",
+        "arrayish",
+        "bser",
+        "callsites",
+        "camelcase",
+        "caniuse",
+        "cliui",
+        "deepmerge",
+        "emittery",
+        "execa",
+        "fullwidth",
+        "gensync",
+        "hasown",
+        "imurmurhash",
+        "isexe",
+        "jsesc",
+        "kleur",
+        "makeerror",
+        "picocolors",
+        "picomatch",
+        "sisteransi",
+        "sprintf",
+        "tmpl",
+        "undici",
+        "wrappy",
+        "yallist",
+        "yocto"
+    ],
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/node_modules": true
+    }
+}

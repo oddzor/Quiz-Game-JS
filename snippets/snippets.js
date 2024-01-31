@@ -1,11 +1,15 @@
-// function startTimer() {
-//   let sec = 20;
-//     let timerInterval = setInterval(quizTimer, 1000);
-//     function quizTimer() {
-//       document.getElementById("countdown__timer__snippets").innerHTML ="You have" + " " + sec + " " + "seconds";
-//       sec--;
-//       if (sec == -1 ) {
-//         clearInterval(timerInterval);
-//       }
-//     }
-//   }
+
+let objectMeta = {
+    fornavn: "Odd",
+    etternavn: "Grimholt",
+    alder: 33,
+    adresse: 
+    {
+    gate: "Storgaten 15A",
+    leilighet: 302,
+    postnummer: 3126,
+},
+}
+
+console.log(objectMeta.length);
+    
