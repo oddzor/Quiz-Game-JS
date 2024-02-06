@@ -20,7 +20,6 @@ const answerButtons = [
 ];
 const submitButton = document.getElementById("submit__answer_button");
 
-let userNameList = [];
 
 
 
@@ -1038,32 +1037,47 @@ let sec = 20;
   function quizTimer() {
     document.getElementById("countdown__timer").innerHTML ="You have" + " " + sec + " " + "seconds";
     sec--;
-    if (sec == -1 ) {
+    if (sec == 0 ) {
       clearInterval(timerInterval);
       loadQuestionStartTimer();
     }
   } 
-  console.log(sec);
 }
 
+function checkAnswer() {  // Check answerButtons onclick to match correctAnswer from the array object.
+if (selectedAnswer === correctAnswer) {
+  pointCalculation();
+  savePoints(); 
+} else zeroPoints();
+}
+
+function pointCalculation (remainingTime) {  // Based on time remaining when the submitAnswerButton is clicked, calculate points 
+  let points = 100 - (5 * (20 - remainingTime));
+  if (points < 0) {
+   points = 0;
+  } return points;
+ }
 
 
-function loadQuestionStartTimer () {
+function savePoints () {
+
+}
+
+function loadQuestionStartTimer () {  // Load new question and restart timer 
 loadRandomQuestion();
 startTimer();
 }
 
-function pointCalculation (remainingTime) {
- let points = 100 - (5 * (20 - remainingTime));
- if (points < 0) {
-  points = 0;
- } return points;
+function zeroPoints() {
+  savePoints(0);
 }
 
 
-function answerSubmitted () {
-let remainingTime = timerInterval;
-let pointsAwarded = pointCalculation(remainingTime);
-}  
 
+function submitAnswerFlow () { // Should be executed to run the nested functions when submitanswer is clicked. 
+checkAnswer();
+pointCalculation();
+savePoints();
+loadQuestionStartTimer();
+}
 
