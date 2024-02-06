@@ -18,9 +18,39 @@ const answerButtons = [
   document.getElementById("options__wrapper__3"),
   document.getElementById("options__wrapper__4"),
 ];
-const submitButton = document.getElementById("submit__answer_button");
 
 
+const submitButton = document.getElementById("submit__answer__button"); // Onclick for submit button to be linked to following functions to check selected option and execute functions.
+if (submitButton) {
+  submitButton.addEventListener('click', () => {
+    console.log("Submit button clicked");
+    loadQuestionStartTimer();
+  });
+} else {
+  console.warn("Submit button not found.");
+}
+
+// Onclick function for 
+function onOptionClick(event) {
+  console.log("Option clicked:", event.target.id);
+//
+}
+
+const optionIds = [  // Array of quiz options to simplify onclick event by looping through the array instead of making individual onclick cases.
+  "options__wrapper__1",
+  "options__wrapper__2",
+  "options__wrapper__3",
+  "options__wrapper__4"
+];
+
+optionIds.forEach(id => {
+  const element = document.getElementById(id);  // A forEach loop through the optionIDs array to determine which option was clicked before submit button was clicked.
+  if (element) {
+    element.addEventListener('click', onOptionClick);
+  } else {
+    console.warn(`Element with id '${id}' not found.`);
+  }
+});
 
 
   // Question bank array is collapsed, but containing objects referencing all 195 countries in the world (List should be up to date 2023) //
@@ -1043,6 +1073,8 @@ let sec = 20;
     }
   } 
 }
+
+
 
 function checkAnswer() {  // Check answerButtons onclick to match correctAnswer from the array object.
 if (selectedAnswer === correctAnswer) {
