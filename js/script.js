@@ -1,11 +1,8 @@
-// import { createClient } from '@supabase/supabase-js'
-// const supabaseUrl = 'https://sywoixmfimdjfqgvznzc.supabase.co'
-// const supabaseKey = process.env.SUPABASE_KEY
-// const supabase = createClient(supabaseUrl, supabaseKey);
-
 let quizUser = prompt("Enter your name", "Quiz User"); // Prompt to enter name //
 let quizTimerInterval;
-let remainingTime = 20; 
+let remainingTime = 20;
+let selectedAnswer = null; // Variable to store the selected answer
+let currentQuestionIndex = null; // Keep track of the current question index
 
 if (quizUser != null) {
   document.getElementById("quiz__user__name").innerHTML =
@@ -21,13 +18,9 @@ const answerButtons = [
   document.getElementById("options__wrapper__4"),
 ];
 
-
 const submitButton = document.getElementById("submit__answer__button"); // Onclick for submit button to be linked to following functions to check selected option and execute functions.
 if (submitButton) {
-  submitButton.addEventListener('click', () => {
-    console.log("Submit button clicked");
-    loadQuestionStartTimer();
-  });
+  submitButton.addEventListener('click', submitAnswerFlow);
 } else {
   console.warn("Submit button not found.");
 }
@@ -35,7 +28,7 @@ if (submitButton) {
 // Onclick function for 
 function onOptionClick(event) {
   console.log("Option clicked:", event.target.id);
-//
+  selectedAnswer = event.target.innerText; // Assuming the innerText holds the answer text
 }
 
 const optionIds = [  // Array of quiz options to simplify onclick event by looping through the array instead of making individual onclick cases.
@@ -54,7 +47,6 @@ optionIds.forEach(id => {
   }
 });
 
-
   // Question bank array is collapsed, but containing objects referencing all 195 countries in the world (List should be up to date 2023) //
   const questionBank = [
     {
@@ -62,25 +54,25 @@ optionIds.forEach(id => {
       answers: ["Algiers", "Thimpu", "Kabul", "Islamabad"],
       correctAnswer: "Kabul",
     },
-
+  
     {
       questionText: "What is the capital of Albania",
       answers: ["Timbuktu", "Split", "Yerevan", "Tirana"],
       correctAnswer: "Tirana",
     },
-
+  
     {
       questionText: "What is the capital of Algeria",
       answers: ["Dhaka", "Algiers", "Nassau", "Gaborone"],
       correctAnswer: "Algiers",
     },
-
+  
     {
       questionText: "What is the capital of Andorra",
       answers: ["Andorra La Vella", "Benin", "Sarajevo", "Sofia"],
       correctAnswer: "Andorra La Vella",
     },
-
+  
     {
       questionText: "What is the capital of Angola",
       answers: ["Kinhasa", "Ougadogo", "Luanda", "Belmopan"],
@@ -111,7 +103,7 @@ optionIds.forEach(id => {
       answers: ["Tashkent", "Ashgabat", "Baku", "Tehran"],
       correctAnswer: "Baku",
     },
-
+  
     {
       questionText: "What is the capital of The Bahamas?",
       answers: ["Nassau", "Havana", "Kingston", "Bridgetown"],
@@ -1039,6 +1031,7 @@ optionIds.forEach(id => {
       correctAnswer: "Harare",
     },
   ];
+  
 
   function getRandomQuestionIndex() {
     return Math.floor(Math.random() * questionBank.length);
@@ -1049,57 +1042,52 @@ optionIds.forEach(id => {
     loadQuestion(randomIndex); 
     startTimer(); // Function to load the random question and calls on the timer start function each time a new question is loaded //
   }
-
-  window.onload = loadRandomQuestion; // Loads random question based on the previous function into the HTML elements //
-
-
-function loadQuestion(questionIndex) {
-  let question = questionBank[questionIndex];
-  questionElement.innerText = question.questionText;
-  question.answers.forEach((answer, index) => {
-    answerButtons[index].innerText = answer;
-  });
-}
-
-loadQuestion();
-
-function startTimer() {
-  remainingTime = 20; 
-  if (quizTimerInterval) {
-    clearInterval(quizTimerInterval);
-  }
-  quizTimerInterval = setInterval(() => {
-    document.getElementById("countdown__timer").innerHTML = "You have " + remainingTime + " seconds";
-    remainingTime--;
-    if (remainingTime < 0) {
-      clearInterval(quizTimerInterval);
-      loadQuestionStartTimer(); 
-    }
-  }, 1000);
-}
-
-function submitAnswerFlow() {
   
-  const points = pointCalculation(remainingTime > 0 ? remainingTime : 0); 
-  console.log("Points scored:", points);
-  savePoints(points);
-  loadQuestionStartTimer();
-}
-
-function pointCalculation (remainingTime) {  // Based on time remaining when the submitAnswerButton is clicked, calculate points 
-  let points = 100 - (5 * (20 - remainingTime));
-  if (points < 0) {
-   points = 0;
-  } return points;
- }
-
- function savePoints(points) {
-  console.log("Saving points:", points);
-}
-
-function loadQuestionStartTimer () {  // Load new question and restart timer 
-loadRandomQuestion();
-}
-
-
-
+  window.onload = loadRandomQuestion; // Loads random question based on the previous function into the HTML elements //
+  
+  function loadQuestion(questionIndex) {
+    currentQuestionIndex = questionIndex; // Update the current question index
+    let question = questionBank[questionIndex];
+    questionElement.innerText = question.questionText;
+    question.answers.forEach((answer, index) => {
+      answerButtons[index].innerText = answer;
+    });
+  }
+  
+  function startTimer() {
+    remainingTime = 20; 
+    if (quizTimerInterval) {
+      clearInterval(quizTimerInterval);
+    }
+    quizTimerInterval = setInterval(() => {
+      document.getElementById("countdown__timer").innerHTML = "You have " + remainingTime + " seconds";
+      remainingTime--;
+      if (remainingTime < 0) {
+        clearInterval(quizTimerInterval);
+        loadQuestionStartTimer(); 
+      }
+    }, 1000);
+  }
+  
+  function submitAnswerFlow() {
+    const isCorrect = selectedAnswer === questionBank[currentQuestionIndex].correctAnswer;
+    const points = pointCalculation(remainingTime > 0 ? remainingTime : 0, isCorrect); 
+    console.log("Points scored:", points);
+    savePoints(points);
+    loadQuestionStartTimer();
+  }
+  
+  function pointCalculation (remainingTime, isCorrect) {
+    if (!isCorrect) return 0; // No points if the answer is wrong
+    let points = 100 - (5 * (20 - remainingTime));
+    return points < 0 ? 0 : points;
+  }
+  
+  function savePoints(points) {
+    console.log("Saving points:", points);
+  }
+  
+  function loadQuestionStartTimer () {
+    selectedAnswer = null; // Reset selected answer
+    loadRandomQuestion();
+  }
