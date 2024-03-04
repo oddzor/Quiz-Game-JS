@@ -4,6 +4,8 @@
 // const supabase = createClient(supabaseUrl, supabaseKey);
 
 let quizUser = prompt("Enter your name", "Quiz User"); // Prompt to enter name //
+let quizTimerInterval;
+let remainingTime = 20; 
 
 if (quizUser != null) {
   document.getElementById("quiz__user__name").innerHTML =
@@ -1062,25 +1064,26 @@ function loadQuestion(questionIndex) {
 loadQuestion();
 
 function startTimer() {
-let sec = 20;
-  let timerInterval = setInterval(quizTimer, 1000);
-  function quizTimer() {
-    document.getElementById("countdown__timer").innerHTML ="You have" + " " + sec + " " + "seconds";
-    sec--;
-    if (sec == 0 ) {
-      clearInterval(timerInterval);
-      loadQuestionStartTimer();
+  remainingTime = 20; 
+  if (quizTimerInterval) {
+    clearInterval(quizTimerInterval);
+  }
+  quizTimerInterval = setInterval(() => {
+    document.getElementById("countdown__timer").innerHTML = "You have " + remainingTime + " seconds";
+    remainingTime--;
+    if (remainingTime < 0) {
+      clearInterval(quizTimerInterval);
+      loadQuestionStartTimer(); 
     }
-  } 
+  }, 1000);
 }
 
-
-
-function checkAnswer() {  // Check answerButtons onclick to match correctAnswer from the array object.
-if (selectedAnswer === correctAnswer) {
-  pointCalculation();
-  savePoints(); 
-} else zeroPoints();
+function submitAnswerFlow() {
+  
+  const points = pointCalculation(remainingTime > 0 ? remainingTime : 0); 
+  console.log("Points scored:", points);
+  savePoints(points);
+  loadQuestionStartTimer();
 }
 
 function pointCalculation (remainingTime) {  // Based on time remaining when the submitAnswerButton is clicked, calculate points 
@@ -1090,26 +1093,13 @@ function pointCalculation (remainingTime) {  // Based on time remaining when the
   } return points;
  }
 
-
-function savePoints () {
-
+ function savePoints(points) {
+  console.log("Saving points:", points);
 }
 
 function loadQuestionStartTimer () {  // Load new question and restart timer 
 loadRandomQuestion();
-startTimer();
-}
-
-function zeroPoints() {
-  savePoints(0);
 }
 
 
-
-function submitAnswerFlow () { // Should be executed to run the nested functions when submitanswer is clicked. 
-checkAnswer();
-pointCalculation();
-savePoints();
-loadQuestionStartTimer();
-}
 
