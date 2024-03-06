@@ -1070,6 +1070,7 @@ optionIds.forEach(id => {
   }
   
   function submitAnswerFlow() {
+    console.log("Submit button clicked, processing answer...");
     const isCorrect = selectedAnswer === questionBank[currentQuestionIndex].correctAnswer;
     const points = pointCalculation(remainingTime > 0 ? remainingTime : 0, isCorrect); 
     console.log("Points scored:", points);
